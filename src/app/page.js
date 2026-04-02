@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, EffectCoverflow, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 
 const portfolioItems = [
@@ -317,31 +316,22 @@ export default function Home() {
           <div className="portfolio-slider-container" style={{ paddingBottom: '3rem' }}>
             <Swiper
               key={activeFilter}
-              modules={[Autoplay, Pagination, EffectCoverflow, Navigation]}
-              effect={'coverflow'}
+              modules={[Autoplay, Pagination, Navigation]}
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={'auto'}
               loop={filteredItems.length > 3}
               loopAdditionalSlides={2}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 80,
-                depth: 200,
-                modifier: 1,
-                slideShadows: false,
-              }}
+              spaceBetween={20}
               autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
               pagination={{
                 clickable: true,
-                dynamicBullets: false,
                 renderBullet: function (index, className) {
-                  return `<span class="${className}"><span class="bullet-inner"></span></span>`;
+                  return `<span class="${className}"></span>`;
                 },
               }}
               navigation={true}
-              speed={1000}
-              cssMode={false}
+              speed={700}
               className="portfolio-swiper"
             >
               {filteredItems.map((item) => (

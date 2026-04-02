@@ -942,14 +942,25 @@ ul {
 }
 
 .portfolio-swiper .swiper-slide {
-    width: 360px;
-    height: 480px;
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    filter: blur(1px);
+    width: 340px;
+    height: 460px;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity, filter;
+}
+
+.portfolio-swiper .swiper-slide:not(.swiper-slide-active) {
+    opacity: 0.4;
+    transform: scale(0.85);
+    filter: blur(2px) brightness(0.7);
 }
 
 .portfolio-swiper .swiper-slide-active {
-    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) brightness(1);
+    z-index: 2;
 }
 
 .portfolio-item {
@@ -958,15 +969,18 @@ ul {
     width: 100%;
     height: 100%;
     border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     background: var(--clr-charcoal);
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: box-shadow 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.7s ease;
+    border: 2px solid transparent;
 }
 
 .portfolio-swiper .swiper-slide-active .portfolio-item {
-    border-radius: 20px;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(229, 185, 66, 0.12);
-    border: 1px solid rgba(229, 185, 66, 0.12);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(229, 185, 66, 0.15),
+                0 0 50px rgba(229, 185, 66, 0.08);
+    border-color: rgba(229, 185, 66, 0.2);
 }
 
 .portfolio-item img {
@@ -974,20 +988,24 @@ ul {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    filter: grayscale(50%) contrast(1.05) brightness(0.85);
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    transform: scale(1.02);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, filter;
 }
 
-.portfolio-item:hover img {
-    filter: grayscale(0%) contrast(1.1) brightness(1.05);
-    transform: scale(1.06);
+.portfolio-swiper .swiper-slide:not(.swiper-slide-active) .portfolio-item img {
+    filter: grayscale(60%) contrast(0.9);
+    transform: scale(1);
 }
 
 .portfolio-swiper .swiper-slide-active .portfolio-item img {
+    filter: grayscale(0%) contrast(1.05) brightness(1.02);
+    transform: scale(1.03);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.08);
     filter: grayscale(0%) contrast(1.1) brightness(1.05);
-    transform: scale(1.05);
-    animation: portfolioBoom 1s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .portfolio-overlay {
@@ -1032,9 +1050,6 @@ ul {
 .portfolio-swiper .swiper-slide-active .portfolio-overlay {
     opacity: 1;
     transform: translateY(0);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    animation: portfolioOverlayIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .portfolio-swiper .swiper-slide-active .portfolio-overlay h4,
@@ -1056,29 +1071,8 @@ ul {
 }
 
 @keyframes portfolioOverlayIn {
-    from {
-        opacity: 0;
-        transform: translateY(14px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes portfolioBoom {
-    from {
-        transform: scale(1);
-        filter: grayscale(50%) contrast(1.05) brightness(0.85);
-    }
-    40% {
-        transform: scale(1.08);
-        filter: grayscale(0%) contrast(1.1) brightness(1.08);
-    }
-    100% {
-        transform: scale(1.05);
-        filter: grayscale(0%) contrast(1.1) brightness(1.05);
-    }
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .portfolio-swiper {
@@ -1095,72 +1089,28 @@ ul {
     padding: 1.5rem 0 0;
 }
 
-.portfolio-swiper .swiper-slide:not(.swiper-slide-active) {
-    opacity: 0.45;
-    transform: scale(0.88);
-}
-
-.portfolio-swiper .swiper-slide-active {
-    opacity: 1;
-    z-index: 2;
-    transform: scale(1);
-}
-
-/* ---- Custom Pagination Bullets ---- */
+/* ---- Pagination Bullets ---- */
 .portfolio-swiper .swiper-pagination {
     bottom: 0 !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .portfolio-swiper .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.3);
     opacity: 1;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.portfolio-swiper .swiper-pagination-bullet .bullet-inner {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    background: transparent;
-    transition: background 0.4s ease;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .portfolio-swiper .swiper-pagination-bullet-active {
     background: var(--clr-gold);
-    width: 32px;
-    height: 10px;
-    border-radius: 10px;
-    border-color: var(--clr-gold);
-    box-shadow: 0 0 12px rgba(229, 185, 66, 0.5), 0 0 25px rgba(229, 185, 66, 0.2);
-}
-
-.portfolio-swiper .swiper-pagination-bullet-active .bullet-inner {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: bulletShine 1.5s ease-in-out infinite;
-}
-
-@keyframes bulletShine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-/* Nearby bullets slightly larger */
-.portfolio-swiper .swiper-pagination-bullet-active + .swiper-pagination-bullet,
-.portfolio-swiper .swiper-pagination-bullet:has(+ .swiper-pagination-bullet-active) {
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.4);
+    width: 28px;
+    box-shadow: 0 0 10px rgba(229, 185, 66, 0.5);
 }
 
 .portfolio-swiper .swiper-button-next,
@@ -1173,7 +1123,7 @@ ul {
     height: 48px;
     border-radius: 50%;
     border: 1px solid rgba(229, 185, 66, 0.15);
-    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 0.3s ease;
 }
 
 .portfolio-swiper .swiper-button-next:hover,
@@ -1181,12 +1131,6 @@ ul {
     background: rgba(229, 185, 66, 0.15);
     border-color: rgba(229, 185, 66, 0.4);
     box-shadow: 0 0 25px rgba(229, 185, 66, 0.2);
-    transform: scale(1.1);
-}
-
-.portfolio-swiper .swiper-button-next:active,
-.portfolio-swiper .swiper-button-prev:active {
-    transform: scale(0.95);
 }
 
 .portfolio-swiper .swiper-button-next::after,
@@ -2016,13 +1960,13 @@ input, select, textarea {
 
     .portfolio-swiper .swiper-slide:not(.swiper-slide-active) {
         opacity: 0.4;
-        filter: blur(2px);
+        filter: blur(2px) brightness(0.7);
         transform: scale(0.85);
     }
 
     .portfolio-swiper .swiper-slide-active {
         opacity: 1;
-        filter: blur(0);
+        filter: blur(0) brightness(1);
         transform: scale(1);
     }
 
@@ -2052,7 +1996,7 @@ input, select, textarea {
 
     .portfolio-swiper .swiper-slide-active .portfolio-item {
         box-shadow: 0 20px 50px rgba(229, 185, 66, 0.15);
-        border: 1px solid rgba(229, 185, 66, 0.15);
+        border-color: rgba(229, 185, 66, 0.15);
     }
 
     .portfolio-swiper .swiper-slide-active .portfolio-item img {
