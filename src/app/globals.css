@@ -774,13 +774,15 @@ ul {
    ========================================================================== */
 /* ---- Services Swiper Slider ---- */
 .services-slider-container {
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
     width: 100%;
-    padding: 1rem 0 3rem;
+    padding: 1.5rem 0 3rem;
 }
 
 .services-swiper {
     padding-bottom: 3.5rem !important;
+    padding-top: 1rem;
 }
 
 /* No transitions on swiper-slide — let Swiper handle movement */
