@@ -154,7 +154,7 @@ export default function Home() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="trust-badge reveal float-anim">
-            <span className="star">⭐</span> 5.0 Rating | 90+ Happy Clients
+            <span className="star">⭐</span> 5.0 Rating | 250+ Happy Clients
           </div>
           <h1 className="hero-title reveal delay-1">Your Story.<br/><span>Inked Forever.</span></h1>
           <p className="hero-subtitle reveal delay-2">Custom tattoos crafted with precision, meaning, and artistry in Trichy.</p>
