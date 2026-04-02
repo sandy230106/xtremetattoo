@@ -3,6 +3,21 @@ import './globals.css';
 export const metadata = {
   title: 'Xtreme Tattoo Studio | Premium Tattoo Artistry in Trichy',
   description: 'Custom tattoos crafted with precision, meaning, and artistry in Trichy. Led by artist Muthu Kumar.',
+  icons: {
+    icon: [
+      { url: '/logo.jpg' },
+      { url: '/icon.jpg' },
+    ],
+    apple: [
+      { url: '/logo.jpg' },
+    ],
+  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({ children }) {
@@ -14,7 +29,6 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <div className="cursor"></div>
         {children}
       </body>
     </html>
