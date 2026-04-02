@@ -1,6 +1,6 @@
  "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -33,6 +33,36 @@ export default function Home() {
   const [activeFilter, setActiveFilter] = useState('all');
   const artistImages = ['/a5.jpg', '/a2.JPG', '/a4.JPG', '/a3.JPG'];
   const [artistImageIndex, setArtistImageIndex] = useState(0);
+  const servicesRef = useRef(null);
+
+  // Mouse-tracking tilt for service cards
+  const handleCardMouseMove = useCallback((e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
+
+    // Move glow to follow cursor
+    const glow = card.querySelector('.service-card-spotlight');
+    if (glow) {
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(229, 185, 66, 0.12) 0%, transparent 60%)`;
+    }
+  }, []);
+
+  const handleCardMouseLeave = useCallback((e) => {
+    const card = e.currentTarget;
+    card.style.transform = '';
+    const glow = card.querySelector('.service-card-spotlight');
+    if (glow) {
+      glow.style.background = 'transparent';
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -209,7 +239,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="services section-padding bg-charcoal" id="services">
+      <section className="services section-padding bg-charcoal" id="services" ref={servicesRef}>
         <div className="container">
           <div className="section-header text-center reveal">
             <h2 className="section-title">Our <span>Services</span></h2>
@@ -236,15 +266,25 @@ export default function Home() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
               ), title: 'Tattoo Removal', desc: 'Safe and effective laser removal services to clear the canvas for your next piece.' },
             ].map((service, i) => (
-              <div className={`service-card reveal-zoom delay-${i}`} key={i}>
+              <div
+                className={`service-card reveal-zoom delay-${i}`}
+                key={i}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
+                style={{ transitionProperty: 'box-shadow, border-color', willChange: 'transform' }}
+              >
+                <div className="service-card-spotlight"></div>
                 <span className="service-number">0{i + 1}</span>
                 <div className="service-icon-wrap">
                   <div className="service-icon">{service.icon}</div>
                   <div className="service-icon-glow"></div>
+                  <div className="service-icon-ring"></div>
                 </div>
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-desc">{service.desc}</p>
                 <div className="service-line"></div>
+                <div className="service-corner service-corner-tl"></div>
+                <div className="service-corner service-corner-br"></div>
               </div>
             ))}
           </div>
