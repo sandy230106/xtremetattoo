@@ -325,16 +325,23 @@ export default function Home() {
               loop={filteredItems.length > 3}
               loopAdditionalSlides={2}
               coverflowEffect={{
-                rotate: 8,
-                stretch: 0,
-                depth: 120,
-                modifier: 2.5,
-                slideShadows: true,
+                rotate: 0,
+                stretch: 80,
+                depth: 200,
+                modifier: 1,
+                slideShadows: false,
               }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
-              pagination={{ clickable: true, dynamicBullets: true }}
+              autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: false,
+                renderBullet: function (index, className) {
+                  return `<span class="${className}"><span class="bullet-inner"></span></span>`;
+                },
+              }}
               navigation={true}
-              speed={800}
+              speed={1000}
+              cssMode={false}
               className="portfolio-swiper"
             >
               {filteredItems.map((item) => (

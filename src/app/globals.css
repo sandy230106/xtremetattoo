@@ -944,6 +944,12 @@ ul {
 .portfolio-swiper .swiper-slide {
     width: 360px;
     height: 480px;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: blur(1px);
+}
+
+.portfolio-swiper .swiper-slide-active {
+    filter: blur(0);
 }
 
 .portfolio-item {
@@ -951,9 +957,16 @@ ul {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     background: var(--clr-charcoal);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.portfolio-swiper .swiper-slide-active .portfolio-item {
+    border-radius: 20px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(229, 185, 66, 0.12);
+    border: 1px solid rgba(229, 185, 66, 0.12);
 }
 
 .portfolio-item img {
@@ -961,8 +974,9 @@ ul {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    filter: grayscale(40%) contrast(1.1);
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: grayscale(50%) contrast(1.05) brightness(0.85);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: scale(1.02);
 }
 
 .portfolio-item:hover img {
@@ -970,8 +984,10 @@ ul {
     transform: scale(1.06);
 }
 
-.portfolio-swiper .swiper-slide-active .portfolio-item {
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(229, 185, 66, 0.1);
+.portfolio-swiper .swiper-slide-active .portfolio-item img {
+    filter: grayscale(0%) contrast(1.1) brightness(1.05);
+    transform: scale(1.05);
+    animation: portfolioBoom 1s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .portfolio-overlay {
@@ -1018,13 +1034,7 @@ ul {
     transform: translateY(0);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    animation: portfolioOverlayIn 0.65s ease both;
-}
-
-.portfolio-swiper .swiper-slide-active .portfolio-item img {
-    filter: grayscale(0%) contrast(1.15);
-    transform: scale(1.12);
-    animation: portfolioBoom 0.7s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    animation: portfolioOverlayIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .portfolio-swiper .swiper-slide-active .portfolio-overlay h4,
@@ -1058,21 +1068,21 @@ ul {
 
 @keyframes portfolioBoom {
     from {
-        transform: scale(1.04);
-        filter: grayscale(80%) contrast(1.2);
+        transform: scale(1);
+        filter: grayscale(50%) contrast(1.05) brightness(0.85);
     }
-    60% {
-        transform: scale(1.18);
-        filter: grayscale(0%) contrast(1.15);
+    40% {
+        transform: scale(1.08);
+        filter: grayscale(0%) contrast(1.1) brightness(1.08);
     }
     100% {
-        transform: scale(1.12);
-        filter: grayscale(0%) contrast(1.15);
+        transform: scale(1.05);
+        filter: grayscale(0%) contrast(1.1) brightness(1.05);
     }
 }
 
 .portfolio-swiper {
-    padding-bottom: 3rem !important;
+    padding-bottom: 3.5rem !important;
     overflow: visible !important;
     max-width: 100%;
 }
@@ -1082,56 +1092,106 @@ ul {
     justify-content: center;
     overflow: hidden;
     width: 100%;
-    padding: 1rem 0;
-}
-
-.portfolio-swiper .swiper-slide {
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+    padding: 1.5rem 0 0;
 }
 
 .portfolio-swiper .swiper-slide:not(.swiper-slide-active) {
-    opacity: 0.6;
+    opacity: 0.45;
+    transform: scale(0.88);
 }
 
 .portfolio-swiper .swiper-slide-active {
     opacity: 1;
     z-index: 2;
+    transform: scale(1);
+}
+
+/* ---- Custom Pagination Bullets ---- */
+.portfolio-swiper .swiper-pagination {
+    bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
 }
 
 .portfolio-swiper .swiper-pagination-bullet {
-    background: var(--clr-white);
-    opacity: 0.5;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.25);
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-swiper .swiper-pagination-bullet .bullet-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: transparent;
+    transition: background 0.4s ease;
 }
 
 .portfolio-swiper .swiper-pagination-bullet-active {
     background: var(--clr-gold);
-    opacity: 1;
-    width: 25px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(229, 185, 66, 0.4);
+    width: 32px;
+    height: 10px;
+    border-radius: 10px;
+    border-color: var(--clr-gold);
+    box-shadow: 0 0 12px rgba(229, 185, 66, 0.5), 0 0 25px rgba(229, 185, 66, 0.2);
+}
+
+.portfolio-swiper .swiper-pagination-bullet-active .bullet-inner {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: bulletShine 1.5s ease-in-out infinite;
+}
+
+@keyframes bulletShine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Nearby bullets slightly larger */
+.portfolio-swiper .swiper-pagination-bullet-active + .swiper-pagination-bullet,
+.portfolio-swiper .swiper-pagination-bullet:has(+ .swiper-pagination-bullet-active) {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .portfolio-swiper .swiper-button-next,
 .portfolio-swiper .swiper-button-prev {
     color: var(--clr-gold);
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    width: 44px;
-    height: 44px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    transition: all 0.3s ease;
+    border: 1px solid rgba(229, 185, 66, 0.15);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .portfolio-swiper .swiper-button-next:hover,
 .portfolio-swiper .swiper-button-prev:hover {
-    background: rgba(229, 185, 66, 0.2);
-    box-shadow: 0 0 20px rgba(229, 185, 66, 0.2);
+    background: rgba(229, 185, 66, 0.15);
+    border-color: rgba(229, 185, 66, 0.4);
+    box-shadow: 0 0 25px rgba(229, 185, 66, 0.2);
+    transform: scale(1.1);
+}
+
+.portfolio-swiper .swiper-button-next:active,
+.portfolio-swiper .swiper-button-prev:active {
+    transform: scale(0.95);
 }
 
 .portfolio-swiper .swiper-button-next::after,
 .portfolio-swiper .swiper-button-prev::after {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
 }
 
@@ -1952,15 +2012,18 @@ input, select, textarea {
     .portfolio-swiper .swiper-slide {
         width: 270px;
         height: 360px;
-        transition: transform 0.3s ease;
     }
 
     .portfolio-swiper .swiper-slide:not(.swiper-slide-active) {
-        opacity: 0.5;
+        opacity: 0.4;
+        filter: blur(2px);
+        transform: scale(0.85);
     }
 
     .portfolio-swiper .swiper-slide-active {
         opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
     }
 
     .portfolio-swiper .swiper-button-next,
@@ -1984,7 +2047,7 @@ input, select, textarea {
     }
 
     .portfolio-item img {
-        filter: grayscale(20%) contrast(1.05);
+        filter: grayscale(20%) contrast(1.05) brightness(0.9);
     }
 
     .portfolio-swiper .swiper-slide-active .portfolio-item {
@@ -1994,6 +2057,21 @@ input, select, textarea {
 
     .portfolio-swiper .swiper-slide-active .portfolio-item img {
         filter: grayscale(0%) contrast(1.1) brightness(1.05);
+    }
+
+    /* Mobile pagination */
+    .portfolio-swiper .swiper-pagination {
+        gap: 5px;
+    }
+
+    .portfolio-swiper .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+    }
+
+    .portfolio-swiper .swiper-pagination-bullet-active {
+        width: 26px;
+        height: 8px;
     }
 
     /* ---- Testimonials ---- */
