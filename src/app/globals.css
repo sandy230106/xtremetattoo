@@ -2178,43 +2178,6 @@ input, select, textarea {
         transform: scale(1.1);
     }
 
-    /* Smooth scroll indicator */
-    .hero::after {
-        content: '';
-        position: absolute;
-        bottom: 1.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 24px;
-        height: 40px;
-        border: 2px solid rgba(229, 185, 66, 0.4);
-        border-radius: 12px;
-        animation: scrollIndicator 2s ease-in-out infinite;
-    }
-
-    .hero::before {
-        content: '';
-        position: absolute;
-        bottom: 2.4rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 8px;
-        background: var(--clr-gold);
-        border-radius: 2px;
-        animation: scrollDot 2s ease-in-out infinite;
-        z-index: 5;
-    }
-
-    @keyframes scrollIndicator {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-    }
-
-    @keyframes scrollDot {
-        0% { transform: translateX(-50%) translateY(0); opacity: 1; }
-        100% { transform: translateX(-50%) translateY(14px); opacity: 0; }
-    }
 }
 
 /* --- Small phones (max 480px) --- */
