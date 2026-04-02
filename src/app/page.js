@@ -32,7 +32,7 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
-  const artistImages = ['/a5.jpg', '/a2.JPG', '/a4.jpg', '/a3.JPG'];
+  const artistImages = ['/a5.jpg', '/a2.JPG', '/a4.JPG', '/a3.JPG'];
   const [artistImageIndex, setArtistImageIndex] = useState(0);
 
   useEffect(() => {
