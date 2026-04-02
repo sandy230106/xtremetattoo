@@ -428,7 +428,7 @@ export default function Home() {
             <p className="contact-subtitle" style={{marginBottom: "2rem"}}>Ready to let your skin tell your story? Reach out to us for a consultation or to book your slot.</p>
             
             <div className="contact-details">
-              <div className="contact-item">
+              <div className="contact-item" onClick={() => window.open('https://maps.app.goo.gl/Gtq9DSjLHXumsedM7', '_blank')} style={{cursor: 'pointer'}}>
                 <div className="contact-icon">📍</div>
                 <div>
                   <h4 style={{marginBottom: "0.5rem", fontSize: "1.2rem"}}>Visit Us</h4>
