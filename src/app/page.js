@@ -84,6 +84,16 @@ export default function Home() {
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
+    const name = e.target.querySelector('#name').value;
+    const phone = e.target.querySelector('#phone').value;
+    const service = e.target.querySelector('#service').value;
+    const message = e.target.querySelector('#message').value;
+
+    const text = `🔥 *New Consultation Request*\n\n👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n🎨 *Service:* ${service}\n💬 *Message:* ${message || 'N/A'}`;
+
+    const whatsappURL = `https://wa.me/917010343009?text=${encodeURIComponent(text)}`;
+    window.open(whatsappURL, '_blank');
+
     const btn = e.target.querySelector('button');
     const originalText = btn.textContent;
     btn.textContent = 'Request Sent!';
@@ -180,7 +190,7 @@ export default function Home() {
               ))}
             </div>
             <div className="about-experience">
-              <span className="exp-number">10+</span>
+              <span className="exp-number">8+</span>
               <span className="exp-text">Years<br/>Experience</span>
             </div>
           </div>
