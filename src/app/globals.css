@@ -1257,6 +1257,59 @@ input:focus, select:focus, textarea:focus {
    Responsive Queries
    ========================================================================== */
 
+/* ==========================================================================
+   Mobile-First Animation Keyframes
+   ========================================================================== */
+@keyframes mobileSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mobileFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes mobileScaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(229, 185, 66, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(229, 185, 66, 0.4); }
+}
+
+@keyframes tapRipple {
+    0% { transform: scale(0); opacity: 0.4; }
+    100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes slideInFromLeft {
+    from { opacity: 0; transform: translateX(-25px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(25px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes borderGlow {
+    0%, 100% { border-color: rgba(229, 185, 66, 0.15); }
+    50% { border-color: rgba(229, 185, 66, 0.5); }
+}
+
 /* --- Tablet & small desktop (max 900px) --- */
 @media (max-width: 900px) {
     .grid-2-col {
@@ -1301,27 +1354,47 @@ input:focus, select:focus, textarea:focus {
 
 /* --- Mobile (max 768px) --- */
 @media (max-width: 768px) {
-    /* Navigation */
+    /* Navigation - Smooth slide with fade */
     .nav-links {
         position: fixed;
-        left: -100%;
+        left: 0;
         top: 0;
         flex-direction: column;
-        background-color: var(--clr-charcoal);
+        background-color: rgba(18, 18, 18, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         width: 100%;
         height: 100vh;
         height: 100dvh;
         text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.5);
+        transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         padding-top: 5rem;
         justify-content: flex-start;
         gap: 1.5rem;
         z-index: 999;
+        transform: translateX(-100%);
+        opacity: 0;
     }
 
     .nav-links.active {
-        left: 0;
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .nav-links.active .nav-link {
+        animation: slideInFromLeft 0.4s ease forwards;
+    }
+
+    .nav-links.active li:nth-child(1) .nav-link { animation-delay: 0.1s; }
+    .nav-links.active li:nth-child(2) .nav-link { animation-delay: 0.15s; }
+    .nav-links.active li:nth-child(3) .nav-link { animation-delay: 0.2s; }
+    .nav-links.active li:nth-child(4) .nav-link { animation-delay: 0.25s; }
+
+    .nav-link {
+        opacity: 0;
+        font-size: 1.3rem;
+        padding: 0.5rem 0;
     }
 
     .hamburger {
@@ -1341,6 +1414,10 @@ input:focus, select:focus, textarea:focus {
         transform: translateY(-8px) rotate(-45deg);
     }
 
+    .bar {
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     .mobile-sticky-cta {
         display: block;
     }
@@ -1349,16 +1426,22 @@ input:focus, select:focus, textarea:focus {
         padding-bottom: 80px;
     }
 
+    /* WhatsApp floating button - bounce on mobile */
     .whatsapp-float {
         bottom: 90px;
         right: 15px;
-        width: 50px;
-        height: 50px;
+        width: 54px;
+        height: 54px;
+        animation: whatsappPulse 2.2s ease-out infinite, gentleBounce 3s ease-in-out infinite;
+    }
+
+    .whatsapp-float:active {
+        transform: scale(0.9);
     }
 
     .wa-icon {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
     }
 
     /* Spacing */
@@ -1372,10 +1455,27 @@ input:focus, select:focus, textarea:focus {
     }
 
     .container {
-        padding: 0 1rem;
+        padding: 0 1.25rem;
     }
 
-    /* Hero */
+    /* Mobile reveal animations - smoother & touch-friendly */
+    .reveal.active {
+        animation: mobileSlideUp 0.7s ease forwards;
+    }
+
+    .reveal-left.active {
+        animation: slideInFromLeft 0.7s ease forwards;
+    }
+
+    .reveal-right.active {
+        animation: slideInFromRight 0.7s ease forwards;
+    }
+
+    .reveal-zoom.active {
+        animation: mobileScaleIn 0.7s ease forwards;
+    }
+
+    /* ---- Hero Section ---- */
     .hero {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
@@ -1386,10 +1486,19 @@ input:focus, select:focus, textarea:focus {
 
     .hero-bg {
         background-attachment: scroll;
+        animation: mobileFadeIn 1.5s ease;
+    }
+
+    .hero-overlay {
+        background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 40%, rgba(5,5,5,0.2) 100%);
     }
 
     .hero-title {
         font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+
+    .hero-title span {
+        animation: inkPulse 3s infinite alternate, glowPulse 4s ease-in-out infinite;
     }
 
     .hero-subtitle {
@@ -1406,6 +1515,21 @@ input:focus, select:focus, textarea:focus {
         width: 100%;
         text-align: center;
         margin-left: 0 !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Tap ripple effect for buttons */
+    .btn:active::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: tapRipple 0.5s ease-out forwards;
     }
 
     .hero-features {
@@ -1416,15 +1540,17 @@ input:focus, select:focus, textarea:focus {
 
     .feature-item {
         margin-left: 0 !important;
+        animation: slideInFromLeft 0.6s ease forwards;
     }
 
     .trust-badge {
         font-size: 0.75rem;
         padding: 0.4rem 0.8rem;
         margin-bottom: 1rem;
+        animation: gentleBounce 4s ease-in-out infinite;
     }
 
-    /* About */
+    /* ---- About Section ---- */
     .about-image-wrapper {
         margin-bottom: 2rem;
     }
@@ -1433,10 +1559,15 @@ input:focus, select:focus, textarea:focus {
         height: auto;
         aspect-ratio: 3 / 4;
         max-height: 70vh;
+        border-radius: 12px;
     }
 
     .artist-img {
         object-position: center 15%;
+    }
+
+    .artist-img.active {
+        animation: mobileScaleIn 0.8s ease both;
     }
 
     .about-experience {
@@ -1448,6 +1579,7 @@ input:focus, select:focus, textarea:focus {
         align-items: center;
         margin-top: 1rem;
         padding: 1rem 1.5rem;
+        animation: borderGlow 3s ease-in-out infinite;
     }
 
     .exp-number {
@@ -1462,6 +1594,11 @@ input:focus, select:focus, textarea:focus {
         font-size: 1rem;
     }
 
+    .about-bullets li {
+        padding-left: 1.5rem;
+        font-size: 0.95rem;
+    }
+
     .section-title {
         font-size: clamp(2rem, 6vw, 3rem);
     }
@@ -1471,14 +1608,27 @@ input:focus, select:focus, textarea:focus {
         margin-bottom: var(--space-md);
     }
 
-    /* Services */
+    /* ---- Services Section ---- */
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
 
     .service-card {
         padding: 2rem 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 16px;
+    }
+
+    .service-card:active {
+        transform: scale(0.97);
+        box-shadow: 0 0 20px rgba(229, 185, 66, 0.15);
+    }
+
+    /* Show the gold accent line on mobile by default for active cards */
+    .service-card::after {
+        height: 100%;
+        opacity: 0.5;
     }
 
     .service-icon {
@@ -1490,26 +1640,47 @@ input:focus, select:focus, textarea:focus {
         font-size: 1.5rem;
     }
 
-    /* Marquee */
+    /* ---- Marquee ---- */
     .marquee-content span {
         font-size: 1.2rem;
         padding: 0 0.5rem;
     }
 
-    /* Portfolio */
+    /* ---- Portfolio ---- */
     .portfolio-filters {
         gap: 0.5rem;
         margin-bottom: 2rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.5rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .portfolio-filters::-webkit-scrollbar {
+        display: none;
     }
 
     .filter-btn {
         padding: 0.4rem 1rem;
         font-size: 1rem;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn.active {
+        transform: scale(1.05);
+    }
+
+    .filter-btn:active {
+        transform: scale(0.95);
     }
 
     .portfolio-swiper .swiper-slide {
-        width: 260px;
-        height: 340px;
+        width: 270px;
+        height: 360px;
+        transition: transform 0.3s ease;
     }
 
     .portfolio-swiper .swiper-button-next,
@@ -1528,31 +1699,56 @@ input:focus, select:focus, textarea:focus {
         transform: translateY(0);
     }
 
-    /* Testimonials */
+    .portfolio-item {
+        border-radius: 16px;
+    }
+
+    .portfolio-item img {
+        filter: grayscale(30%) contrast(1.1);
+    }
+
+    .portfolio-swiper .swiper-slide-active .portfolio-item {
+        box-shadow: 0 20px 50px rgba(229, 185, 66, 0.15);
+    }
+
+    /* ---- Testimonials ---- */
     .testimonials-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
 
     .testimonial-card {
         padding: 1.5rem;
+        transition: transform 0.3s ease;
+        border-radius: 12px;
+    }
+
+    .testimonial-card:active {
+        transform: scale(0.98);
     }
 
     .quote {
         font-size: 1rem;
     }
 
-    /* Contact */
+    .stars {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+
+    /* ---- Contact / Form ---- */
     .contact-info {
         margin-bottom: 2rem;
     }
 
     .contact-form-wrapper {
         padding: 1.5rem !important;
+        border-radius: 16px !important;
     }
 
     .contact-form {
         padding: 1.5rem !important;
+        border-radius: 16px !important;
     }
 
     .contact-icon {
@@ -1566,13 +1762,44 @@ input:focus, select:focus, textarea:focus {
         gap: 1rem;
     }
 
-    /* Instagram */
-    .instagram-iframe {
-        height: 420px;
-        border-radius: 10px;
+    /* Form focus animations */
+    input, select, textarea {
+        padding: 0.85rem;
+        font-size: 16px; /* Prevents iOS zoom */
+        border-radius: 8px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
     }
 
-    /* Footer */
+    input:focus, select:focus, textarea:focus {
+        border-color: var(--clr-gold);
+        box-shadow: 0 0 0 3px rgba(229, 185, 66, 0.15);
+        transform: translateY(-1px);
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    /* Submit button glow on mobile */
+    .contact-form .btn-primary {
+        border-radius: 8px;
+        font-size: 1.1rem;
+        padding: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form .btn-primary:active {
+        transform: scale(0.97);
+        box-shadow: 0 0 25px rgba(229, 185, 66, 0.3);
+    }
+
+    /* ---- Instagram ---- */
+    .instagram-iframe {
+        height: 420px;
+        border-radius: 12px;
+    }
+
+    /* ---- Footer ---- */
     .footer {
         padding: 2rem 1rem !important;
     }
@@ -1590,20 +1817,53 @@ input:focus, select:focus, textarea:focus {
         gap: 1rem !important;
     }
 
-    /* Buttons */
+    .social-icon:active {
+        transform: scale(1.2);
+        color: var(--clr-gold);
+    }
+
+    /* ---- Buttons ---- */
     .btn {
         padding: 0.8rem 1.5rem;
         font-size: 1.1rem;
+        -webkit-tap-highlight-color: transparent;
+        border-radius: 8px;
     }
 
     .btn-block {
         padding: 1rem;
     }
 
-    /* Form elements */
-    input, select, textarea {
+    /* ---- Mobile sticky CTA improvements ---- */
+    .mobile-sticky-cta {
+        padding: 0.75rem 1rem;
+    }
+
+    .mobile-sticky-cta .btn {
+        border-radius: 10px;
+        font-size: 1.1rem;
         padding: 0.85rem;
-        font-size: 0.95rem;
+        animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    /* ---- Scroll smoothness ---- */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Section header shimmer on mobile */
+    .section-header .section-title span {
+        background: linear-gradient(
+            90deg,
+            var(--clr-gold) 0%,
+            #f5d97a 50%,
+            var(--clr-gold) 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shimmer 3s linear infinite;
     }
 }
 
@@ -1654,8 +1914,8 @@ input:focus, select:focus, textarea:focus {
     }
 
     .portfolio-swiper .swiper-slide {
-        width: 220px;
-        height: 300px;
+        width: 240px;
+        height: 320px;
     }
 
     .services-grid {
@@ -1693,8 +1953,8 @@ input:focus, select:focus, textarea:focus {
     .whatsapp-float {
         bottom: 80px;
         right: 10px;
-        width: 45px;
-        height: 45px;
+        width: 48px;
+        height: 48px;
     }
 
     .instagram-iframe {
@@ -1714,6 +1974,7 @@ input:focus, select:focus, textarea:focus {
         height: auto;
         aspect-ratio: 3 / 4;
         max-height: 65vh;
+        border-radius: 12px;
     }
 
     .artist-name {
@@ -1726,7 +1987,7 @@ input:focus, select:focus, textarea:focus {
     }
 
     .nav-link {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 
     /* Contact section spacing */
@@ -1742,6 +2003,17 @@ input:focus, select:focus, textarea:focus {
 
     .contact-item p {
         font-size: 0.9rem;
+    }
+
+    /* Stacked service cards with horizontal swipe hint */
+    .service-card {
+        border-left: 3px solid rgba(229, 185, 66, 0.3);
+    }
+
+    /* Better form on small screens */
+    .form-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
     }
 }
 
@@ -1761,8 +2033,8 @@ input:focus, select:focus, textarea:focus {
     }
 
     .portfolio-swiper .swiper-slide {
-        width: 180px;
-        height: 250px;
+        width: 200px;
+        height: 270px;
     }
 
     .filter-btn {
@@ -1812,6 +2084,43 @@ input:focus, select:focus, textarea:focus {
 
     input, select, textarea {
         padding: 0.75rem;
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+
+    .testimonial-card {
+        padding: 1rem;
+    }
+
+    .quote {
         font-size: 0.9rem;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+    }
+}
+
+/* ==========================================================================
+   Landscape Mobile
+   ========================================================================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100svh;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+        align-items: center;
+    }
+
+    .hero-features {
+        flex-direction: row;
+    }
+
+    .hero-cta {
+        flex-direction: row;
+    }
+
+    .hero-cta .btn {
+        width: auto;
     }
 }

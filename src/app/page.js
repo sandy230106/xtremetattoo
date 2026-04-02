@@ -49,7 +49,8 @@ export default function Home() {
     const triggerReveals = () => {
       const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom');
       const windowHeight = window.innerHeight;
-      const elementVisible = 100;
+      const isMobile = window.innerWidth <= 768;
+      const elementVisible = isMobile ? 50 : 100;
 
       reveals.forEach(reveal => {
         const elementTop = reveal.getBoundingClientRect().top;
