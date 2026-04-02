@@ -217,11 +217,11 @@ export default function Home() {
             </ul>
             <div className="about-stats">
               <div className="about-stat">
-                <span className="about-stat-number">1500+</span>
+                <span className="about-stat-number">250+</span>
                 <span className="about-stat-label">Happy Clients</span>
               </div>
               <div className="about-stat">
-                <span className="about-stat-number">2000+</span>
+                <span className="about-stat-number">300+</span>
                 <span className="about-stat-label">Tattoos Done</span>
               </div>
               <div className="about-stat">
