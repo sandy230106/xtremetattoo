@@ -322,18 +322,19 @@ export default function Home() {
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={'auto'}
-              loop={true}
-              loopAdditionalSlides={3}
+              loop={filteredItems.length > 3}
+              loopAdditionalSlides={2}
               coverflowEffect={{
-                rotate: 55,
-                stretch: 25,
-                depth: 180,
-                modifier: 1,
+                rotate: 8,
+                stretch: 0,
+                depth: 120,
+                modifier: 2.5,
                 slideShadows: true,
               }}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
-              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              pagination={{ clickable: true, dynamicBullets: true }}
               navigation={true}
+              speed={800}
               className="portfolio-swiper"
             >
               {filteredItems.map((item) => (
