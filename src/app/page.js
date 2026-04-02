@@ -188,6 +188,16 @@ export default function Home() {
                   className={`artist-img ${idx === artistImageIndex ? 'active' : ''}`}
                 />
               ))}
+              <div className="about-img-counter">
+                {artistImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`about-img-dot ${idx === artistImageIndex ? 'active' : ''}`}
+                    onClick={() => setArtistImageIndex(idx)}
+                    aria-label={`View image ${idx + 1}`}
+                  />
+                ))}
+              </div>
             </div>
             <div className="about-experience">
               <span className="exp-number">8+</span>
@@ -195,15 +205,30 @@ export default function Home() {
             </div>
           </div>
           <div className="about-content reveal-right">
+            <span className="about-tag">WHO WE ARE</span>
             <h2 className="section-title">More Than Just <span>Tattoos</span></h2>
             <h3 className="artist-name">Artist: Muthu Kumar</h3>
             <p className="about-text">At Xtreme Tattoo Studio, every tattoo is a story. Led by artist Muthu Kumar, we specialize in custom designs that reflect your identity, beliefs, and emotions.</p>
             <p className="about-text">With a strong focus on hygiene, precision, and comfort, we ensure every client has a safe and memorable experience.</p>
             <ul className="about-bullets">
-              <li>Hyper-Realistic & Custom Design Specialists</li>
-              <li>Record Holder Artist</li>
-              <li>100% Sterile & Safe Environment</li>
+              <li><span className="bullet-icon">⚡</span> Hyper-Realistic & Custom Design Specialists</li>
+              <li><span className="bullet-icon">🏆</span> Record Holder Artist</li>
+              <li><span className="bullet-icon">🛡️</span> 100% Sterile & Safe Environment</li>
             </ul>
+            <div className="about-stats">
+              <div className="about-stat">
+                <span className="about-stat-number">1500+</span>
+                <span className="about-stat-label">Happy Clients</span>
+              </div>
+              <div className="about-stat">
+                <span className="about-stat-number">2000+</span>
+                <span className="about-stat-label">Tattoos Done</span>
+              </div>
+              <div className="about-stat">
+                <span className="about-stat-number">5★</span>
+                <span className="about-stat-label">Google Rating</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
