@@ -216,36 +216,37 @@ export default function Home() {
             <p className="section-subtitle">Personalized art, flawless execution, and safety first.</p>
           </div>
           <div className="services-grid">
-            <div className="service-card reveal-zoom">
-              <div className="service-icon">✒️</div>
-              <h3 className="service-title">Custom Tattoos</h3>
-              <p className="service-desc">We design unique tattoos that tell your personal story. No copy-pasting, just pure art.</p>
-            </div>
-            <div className="service-card reveal-zoom delay-1">
-              <div className="service-icon">👤</div>
-              <h3 className="service-title">Portrait Tattoos</h3>
-              <p className="service-desc">Hyper-realistic portraits capturing every fine detail to immortalize your loved ones.</p>
-            </div>
-            <div className="service-card reveal-zoom delay-2">
-              <div className="service-icon">👁️</div>
-              <h3 className="service-title">Realism</h3>
-              <p className="service-desc">Hyper-accurate, lifelike designs that capture reality with stunning precision.</p>
-            </div>
-            <div className="service-card reveal-zoom delay-3">
-              <div className="service-icon">💎</div>
-              <h3 className="service-title">Piercing</h3>
-              <p className="service-desc">Professional and hygienic body piercing with a wide selection of premium jewelry.</p>
-            </div>
-            <div className="service-card reveal-zoom delay-4">
-              <div className="service-icon">🔄</div>
-              <h3 className="service-title">Cover-ups</h3>
-              <p className="service-desc">Transform your regretful ink into a masterpiece you&apos;ll be proud to show off.</p>
-            </div>
-            <div className="service-card reveal-zoom delay-5">
-              <div className="service-icon">❌</div>
-              <h3 className="service-title">Tattoo Removal</h3>
-              <p className="service-desc">Safe and effective laser removal services to clear the canvas for your next piece.</p>
-            </div>
+            {[
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+              ), title: 'Custom Tattoos', desc: 'We design unique tattoos that tell your personal story. No copy-pasting, just pure art.' },
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              ), title: 'Portrait Tattoos', desc: 'Hyper-realistic portraits capturing every fine detail to immortalize your loved ones.' },
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              ), title: 'Realism', desc: 'Hyper-accurate, lifelike designs that capture reality with stunning precision.' },
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><path d="M12 22L6 9"/><path d="M12 22l6-13"/></svg>
+              ), title: 'Piercing', desc: 'Professional and hygienic body piercing with a wide selection of premium jewelry.' },
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+              ), title: 'Cover-ups', desc: 'Transform your regretful ink into a masterpiece you\'ll be proud to show off.' },
+              { icon: (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+              ), title: 'Tattoo Removal', desc: 'Safe and effective laser removal services to clear the canvas for your next piece.' },
+            ].map((service, i) => (
+              <div className={`service-card reveal-zoom delay-${i}`} key={i}>
+                <span className="service-number">0{i + 1}</span>
+                <div className="service-icon-wrap">
+                  <div className="service-icon">{service.icon}</div>
+                  <div className="service-icon-glow"></div>
+                </div>
+                <h3 className="service-title">{service.title}</h3>
+                <p className="service-desc">{service.desc}</p>
+                <div className="service-line"></div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
