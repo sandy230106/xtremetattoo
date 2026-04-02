@@ -220,14 +220,18 @@ export default function Home() {
               modules={[Autoplay, Pagination, Navigation]}
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={'auto'}
               loop={true}
-              loopAdditionalSlides={2}
-              spaceBetween={24}
-              autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              spaceBetween={30}
+              autoplay={{ delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true }}
               pagination={{ clickable: true }}
               navigation={true}
-              speed={800}
+              speed={600}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 1.5 },
+                900: { slidesPerView: 2.5 },
+                1200: { slidesPerView: 3 },
+              }}
               className="services-swiper"
             >
               {[
