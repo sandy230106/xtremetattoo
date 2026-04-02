@@ -2159,15 +2159,9 @@ input, select, textarea {
     }
 
     .about-experience {
-        position: relative;
-        bottom: auto;
-        right: auto;
-        display: inline-flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin-top: 1rem;
+        bottom: -10px;
+        right: -10px;
         padding: 1rem 1.5rem;
-        animation: borderGlow 3s ease-in-out infinite;
     }
 
     .exp-number {
@@ -2594,7 +2588,9 @@ input, select, textarea {
     }
 
     .about-experience {
-        padding: 0.8rem 1.2rem;
+        bottom: -8px;
+        right: -8px;
+        padding: 0.8rem 1rem;
     }
 
     .exp-number {
