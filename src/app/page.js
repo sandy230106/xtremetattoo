@@ -322,6 +322,8 @@ export default function Home() {
               grabCursor={true}
               centeredSlides={true}
               slidesPerView={'auto'}
+              loop={true}
+              loopAdditionalSlides={3}
               coverflowEffect={{
                 rotate: 55,
                 stretch: 25,
