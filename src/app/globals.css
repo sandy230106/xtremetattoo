@@ -774,15 +774,18 @@ ul {
    ========================================================================== */
 /* ---- Services Swiper Slider ---- */
 .services-slider-container {
-    overflow-x: clip;
-    overflow-y: visible;
     width: 100%;
-    padding: 1.5rem 0 3rem;
+    padding: 2rem 0 3rem;
 }
 
 .services-swiper {
     padding-bottom: 3.5rem !important;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
+    overflow: visible !important;
+}
+
+.services-swiper .swiper-wrapper {
+    overflow: visible !important;
 }
 
 /* No transitions on swiper-slide — let Swiper handle movement */
@@ -1028,6 +1031,11 @@ ul {
 .services-swiper .swiper-button-prev::after {
     font-size: 1rem;
     font-weight: bold;
+}
+
+.services {
+    overflow-x: clip;
+    overflow-y: visible;
 }
 
 /* ==========================================================================
