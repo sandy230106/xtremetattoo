@@ -33,6 +33,7 @@ export default function Home() {
   const [activeFilter, setActiveFilter] = useState('all');
   const artistImages = ['/a5.jpg', '/a2.JPG', '/a4.JPG', '/a3.JPG'];
   const [artistImageIndex, setArtistImageIndex] = useState(0);
+  const [activeService, setActiveService] = useState(0);
   const servicesRef = useRef(null);
 
   // Mouse-tracking tilt for service cards
@@ -111,6 +112,15 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(id);
   }, [isLoading, artistImages.length]);
+
+  // Auto-cycle active service card every 2s
+  useEffect(() => {
+    if (isLoading) return;
+    const id = setInterval(() => {
+      setActiveService((prev) => (prev + 1) % 6);
+    }, 2000);
+    return () => clearInterval(id);
+  }, [isLoading]);
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
@@ -267,11 +277,12 @@ export default function Home() {
               ), title: 'Tattoo Removal', desc: 'Safe and effective laser removal services to clear the canvas for your next piece.' },
             ].map((service, i) => (
               <div
-                className={`service-card reveal-zoom delay-${i}`}
+                className={`service-card reveal-zoom delay-${i}${activeService === i ? ' service-active' : ''}`}
                 key={i}
                 onMouseMove={handleCardMouseMove}
                 onMouseLeave={handleCardMouseLeave}
-                style={{ transitionProperty: 'box-shadow, border-color', willChange: 'transform' }}
+                onMouseEnter={() => setActiveService(i)}
+                style={{ willChange: 'transform' }}
               >
                 <div className="service-card-spotlight"></div>
                 <span className="service-number">0{i + 1}</span>

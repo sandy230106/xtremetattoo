@@ -1049,6 +1049,77 @@ ul {
 .service-card.reveal-zoom.delay-4 { transition-delay: 0.4s; }
 .service-card.reveal-zoom.delay-5 { transition-delay: 0.5s; }
 
+/* ---- Auto-cycle active service ---- */
+.service-card {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.5s ease,
+                opacity 0.6s ease,
+                filter 0.6s ease;
+}
+
+/* When any card is active, dim the others */
+.services-grid:has(.service-active) .service-card:not(.service-active) {
+    opacity: 0.5;
+    filter: brightness(0.7);
+    transform: scale(0.97);
+}
+
+/* The active card lifts up with gold glow */
+.service-card.service-active {
+    transform: translateY(-16px) scale(1.03);
+    border-color: rgba(229, 185, 66, 0.25);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(229, 185, 66, 0.08),
+        0 0 80px rgba(229, 185, 66, 0.04);
+    z-index: 2;
+}
+
+.service-card.service-active .service-icon {
+    background: rgba(229, 185, 66, 0.18);
+    border-color: rgba(229, 185, 66, 0.35);
+    box-shadow: 0 8px 30px rgba(229, 185, 66, 0.2);
+    animation: none;
+    transform: translateY(-3px) scale(1.1);
+}
+
+.service-card.service-active .service-icon-glow {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.4);
+}
+
+.service-card.service-active .service-icon-ring {
+    opacity: 1;
+    border-color: rgba(229, 185, 66, 0.2);
+}
+
+.service-card.service-active .service-title {
+    color: var(--clr-gold);
+}
+
+.service-card.service-active .service-desc {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.service-card.service-active .service-line {
+    width: 60px;
+}
+
+.service-card.service-active .service-number {
+    color: rgba(229, 185, 66, 0.18);
+    transform: translateY(-4px);
+}
+
+.service-card.service-active .service-corner {
+    opacity: 0.4;
+    transform: translate(0, 0);
+}
+
+.service-card.service-active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
 /* ==========================================================================
    Marquee (Why Us)
    ========================================================================== */
@@ -2139,6 +2210,19 @@ input, select, textarea {
 
     .service-corner {
         display: none;
+    }
+
+    /* Auto-cycle active on mobile */
+    .services-grid:has(.service-active) .service-card:not(.service-active) {
+        opacity: 0.5;
+        filter: brightness(0.7);
+        transform: scale(0.97) !important;
+    }
+
+    .service-card.service-active {
+        transform: translateY(-10px) scale(1.02) !important;
+        border-color: rgba(229, 185, 66, 0.2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(229, 185, 66, 0.06);
     }
 
     /* ---- Marquee ---- */
