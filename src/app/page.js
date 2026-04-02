@@ -1,6 +1,6 @@
  "use client";
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -33,37 +33,6 @@ export default function Home() {
   const [activeFilter, setActiveFilter] = useState('all');
   const artistImages = ['/a5.jpg', '/a2.JPG', '/a4.JPG', '/a3.JPG'];
   const [artistImageIndex, setArtistImageIndex] = useState(0);
-  const [activeService, setActiveService] = useState(0);
-  const servicesRef = useRef(null);
-
-  // Mouse-tracking tilt for service cards
-  const handleCardMouseMove = useCallback((e) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -8;
-    const rotateY = ((x - centerX) / centerX) * 8;
-
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.02)`;
-
-    // Move glow to follow cursor
-    const glow = card.querySelector('.service-card-spotlight');
-    if (glow) {
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(229, 185, 66, 0.12) 0%, transparent 60%)`;
-    }
-  }, []);
-
-  const handleCardMouseLeave = useCallback((e) => {
-    const card = e.currentTarget;
-    card.style.transform = '';
-    const glow = card.querySelector('.service-card-spotlight');
-    if (glow) {
-      glow.style.background = 'transparent';
-    }
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -112,15 +81,6 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(id);
   }, [isLoading, artistImages.length]);
-
-  // Auto-cycle active service card every 2s
-  useEffect(() => {
-    if (isLoading) return;
-    const id = setInterval(() => {
-      setActiveService((prev) => (prev + 1) % 6);
-    }, 2000);
-    return () => clearInterval(id);
-  }, [isLoading]);
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
@@ -249,55 +209,61 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="services section-padding bg-charcoal" id="services" ref={servicesRef}>
+      <section className="services section-padding bg-charcoal" id="services">
         <div className="container">
           <div className="section-header text-center reveal">
             <h2 className="section-title">Our <span>Services</span></h2>
             <p className="section-subtitle">Personalized art, flawless execution, and safety first.</p>
           </div>
-          <div className="services-grid">
-            {[
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
-              ), title: 'Custom Tattoos', desc: 'We design unique tattoos that tell your personal story. No copy-pasting, just pure art.' },
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              ), title: 'Portrait Tattoos', desc: 'Hyper-realistic portraits capturing every fine detail to immortalize your loved ones.' },
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              ), title: 'Realism', desc: 'Hyper-accurate, lifelike designs that capture reality with stunning precision.' },
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><path d="M12 22L6 9"/><path d="M12 22l6-13"/></svg>
-              ), title: 'Piercing', desc: 'Professional and hygienic body piercing with a wide selection of premium jewelry.' },
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-              ), title: 'Cover-ups', desc: 'Transform your regretful ink into a masterpiece you\'ll be proud to show off.' },
-              { icon: (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
-              ), title: 'Tattoo Removal', desc: 'Safe and effective laser removal services to clear the canvas for your next piece.' },
-            ].map((service, i) => (
-              <div
-                className={`service-card reveal-zoom delay-${i}${activeService === i ? ' service-active' : ''}`}
-                key={i}
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-                onMouseEnter={() => setActiveService(i)}
-                style={{ willChange: 'transform' }}
-              >
-                <div className="service-card-spotlight"></div>
-                <span className="service-number">0{i + 1}</span>
-                <div className="service-icon-wrap">
-                  <div className="service-icon">{service.icon}</div>
-                  <div className="service-icon-glow"></div>
-                  <div className="service-icon-ring"></div>
-                </div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-desc">{service.desc}</p>
-                <div className="service-line"></div>
-                <div className="service-corner service-corner-tl"></div>
-                <div className="service-corner service-corner-br"></div>
-              </div>
-            ))}
+          <div className="services-slider-container reveal">
+            <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              loop={true}
+              loopAdditionalSlides={2}
+              spaceBetween={24}
+              autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              pagination={{ clickable: true }}
+              navigation={true}
+              speed={800}
+              className="services-swiper"
+            >
+              {[
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+                ), title: 'Custom Tattoos', desc: 'We design unique tattoos that tell your personal story. No copy-pasting, just pure art.' },
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                ), title: 'Portrait Tattoos', desc: 'Hyper-realistic portraits capturing every fine detail to immortalize your loved ones.' },
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                ), title: 'Realism', desc: 'Hyper-accurate, lifelike designs that capture reality with stunning precision.' },
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><path d="M12 22L6 9"/><path d="M12 22l6-13"/></svg>
+                ), title: 'Piercing', desc: 'Professional and hygienic body piercing with a wide selection of premium jewelry.' },
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                ), title: 'Cover-ups', desc: 'Transform your regretful ink into a masterpiece you\'ll be proud to show off.' },
+                { icon: (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>
+                ), title: 'Tattoo Removal', desc: 'Safe and effective laser removal services to clear the canvas for your next piece.' },
+              ].map((service, i) => (
+                <SwiperSlide key={i}>
+                  <div className="service-card">
+                    <span className="service-number">0{i + 1}</span>
+                    <div className="service-icon-wrap">
+                      <div className="service-icon">{service.icon}</div>
+                      <div className="service-icon-glow"></div>
+                    </div>
+                    <h3 className="service-title">{service.title}</h3>
+                    <p className="service-desc">{service.desc}</p>
+                    <div className="service-line"></div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </section>
