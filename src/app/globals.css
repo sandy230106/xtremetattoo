@@ -115,6 +115,26 @@ ul {
 
 .section-title span {
     color: var(--clr-red);
+    position: relative;
+}
+
+.section-title span::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--clr-gold), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal.active .section-title span::after,
+.reveal-left.active .section-title span::after,
+.reveal-right.active .section-title span::after {
+    transform: scaleX(1);
 }
 
 .section-subtitle {
@@ -126,7 +146,7 @@ ul {
 .grid-2-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     align-items: center;
 }
 
@@ -331,10 +351,11 @@ ul {
 }
 
 .navbar.scrolled {
-    background-color: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background-color: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {
@@ -432,7 +453,13 @@ ul {
     background-position: center 25%;
     background-attachment: fixed; /* Parallax */
     z-index: -2;
-    transform: scale(1.05); /* Slight zoom for dramatic effect */
+    transform: scale(1.05);
+    animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1.12); }
 }
 
 .hero-overlay {
@@ -458,6 +485,13 @@ ul {
     color: var(--clr-gold);
     margin-bottom: 2rem;
     backdrop-filter: blur(5px);
+    transition: all 0.4s ease;
+}
+
+.trust-badge:hover {
+    background: rgba(229, 185, 66, 0.1);
+    border-color: rgba(212,175,55,0.6);
+    box-shadow: 0 0 20px rgba(229, 185, 66, 0.15);
 }
 
 .hero-title {
@@ -525,6 +559,10 @@ ul {
 /* ==========================================================================
    About Section
    ========================================================================== */
+.about {
+    overflow: hidden;
+}
+
 .about-image-wrapper {
     position: relative;
 }
@@ -532,11 +570,34 @@ ul {
 .about-image {
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 12px;
     width: 100%;
-    height: clamp(360px, 44vw, 600px);
+    height: clamp(360px, 44vw, 550px);
     box-shadow: 0 28px 70px rgba(0,0,0,0.55);
     border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, transparent 40%, rgba(229, 185, 66, 0.25) 50%, transparent 60%);
+    background-size: 300% 300%;
+    animation: aboutImageShine 5s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@keyframes aboutImageShine {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.65), 0 0 40px rgba(229, 185, 66, 0.08);
 }
 
 .artist-img {
@@ -547,16 +608,16 @@ ul {
     object-fit: cover;
     object-position: center 20%;
     opacity: 0;
-    filter: grayscale(100%);
-    transform: translateY(8px);
-    transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+    filter: grayscale(100%) brightness(0.8);
+    transform: scale(1.05);
+    transition: opacity 1s ease, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), filter 1s ease;
 }
 
 .artist-img.active {
     opacity: 1;
-    filter: grayscale(0%);
-    transform: translateY(0);
-    animation: artistImgIn 0.8s ease both;
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1);
+    animation: artistImgIn 1s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .about-image img:not(.artist-img) {
@@ -578,50 +639,85 @@ ul {
 
 .about-experience {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
-    background-color: var(--clr-red);
-    padding: 2rem;
+    bottom: -15px;
+    right: -15px;
+    background: linear-gradient(135deg, var(--clr-red), #c9a020);
+    padding: 1.5rem;
     text-align: center;
-    border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(229, 185, 66, 0.2);
+    z-index: 3;
+    animation: expBadgePulse 3s ease-in-out infinite;
+}
+
+@keyframes expBadgePulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(229, 185, 66, 0.2); }
+    50% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 35px rgba(229, 185, 66, 0.35); }
 }
 
 .exp-number {
     display: block;
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 2.8rem;
     line-height: 1;
 }
 
 .exp-text {
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 1px;
+}
+
+.about-content {
+    padding-left: 0.5rem;
 }
 
 .artist-name {
     color: var(--clr-gold);
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.artist-name::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--clr-gold);
+    transition: width 0.8s ease;
+}
+
+.reveal-right.active .artist-name::after {
+    width: 100%;
 }
 
 .about-text {
     color: var(--clr-gray);
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 .about-bullets {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .about-bullets li {
     position: relative;
     padding-left: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     font-weight: 600;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.about-bullets li:hover {
+    transform: translateX(5px);
+    color: var(--clr-gold);
 }
 
 .about-bullets li::before {
@@ -629,6 +725,11 @@ ul {
     position: absolute;
     left: 0;
     color: var(--clr-red);
+    transition: transform 0.3s ease;
+}
+
+.about-bullets li:hover::before {
+    transform: translateX(3px);
 }
 
 /* ==========================================================================
@@ -647,9 +748,26 @@ ul {
     padding: 3rem 2rem;
     border-radius: 12px;
     border: 1px solid var(--glass-border);
-    transition: var(--transition-slow);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     position: relative;
     overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(229, 185, 66, 0.06), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.service-card:hover::before {
+    opacity: 1;
 }
 
 .service-card::after {
@@ -657,15 +775,16 @@ ul {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
+    width: 3px;
     height: 0;
-    background-color: var(--clr-red);
-    transition: var(--transition-slow);
+    background: linear-gradient(to bottom, var(--clr-gold), transparent);
+    transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    border-color: rgba(255,255,255,0.1);
+    border-color: rgba(229, 185, 66, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(229, 185, 66, 0.05);
 }
 
 .service-card:hover::after {
@@ -679,6 +798,12 @@ ul {
     padding: 1rem;
     background: rgba(255,255,255,0.03);
     border-radius: 50%;
+    transition: transform 0.5s ease, background 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.15) rotate(5deg);
+    background: rgba(229, 185, 66, 0.1);
 }
 
 .service-title {
@@ -695,7 +820,7 @@ ul {
    ========================================================================== */
 .why-us {
     padding: 2rem 0;
-    background-color: var(--clr-red);
+    background: linear-gradient(135deg, var(--clr-red), #c9a020);
     overflow: hidden;
     position: relative;
 }
@@ -971,15 +1096,30 @@ ul {
 .testimonial-card {
     background: var(--clr-black);
     padding: 2.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
     position: relative;
     border-top: 4px solid var(--clr-gold);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 5rem;
+    color: rgba(229, 185, 66, 0.06);
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .testimonial-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 25px rgba(229, 185, 66, 0.06);
+        border-top-color: #f5d97a;
     }
 }
 
@@ -987,6 +1127,7 @@ ul {
     color: var(--clr-gold);
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    letter-spacing: 2px;
 }
 
 .quote {
@@ -994,11 +1135,17 @@ ul {
     font-style: italic;
     color: var(--clr-gray);
     margin-bottom: 1.5rem;
+    line-height: 1.7;
 }
 
 .client-name {
     font-size: 1.2rem;
     color: var(--clr-white);
+    transition: color 0.3s ease;
+}
+
+.testimonial-card:hover .client-name {
+    color: var(--clr-gold);
 }
 
 /* ==========================================================================
@@ -1069,7 +1216,12 @@ ul {
 .contact-form-wrapper {
     background: var(--clr-charcoal);
     padding: 3rem;
-    border-radius: 8px;
+    border-radius: 12px;
+    transition: box-shadow 0.5s ease;
+}
+
+.contact-form-wrapper:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(229, 185, 66, 0.04);
 }
 
 .form-title {
@@ -1096,6 +1248,12 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--clr-gold);
+    box-shadow: 0 0 0 3px rgba(229, 185, 66, 0.1);
+    transform: translateY(-1px);
+}
+
+input, select, textarea {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 /* ==========================================================================
