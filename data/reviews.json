@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1778444602310",
+    "name": "sandy",
+    "rating": 5,
+    "comment": "very good shop, i like it",
+    "date": "2026-05-10T20:23:22.310Z"
+  },
+  {
+    "id": "s1",
+    "name": "Rahul M.",
+    "comment": "Best tattoo artist in Trichy! The attention to detail is mind-blowing.",
+    "rating": 5,
+    "date": "2024-05-10T12:00:00.000Z"
+  },
+  {
+    "id": "s2",
+    "name": "Priya S.",
+    "comment": "Very hygienic and professional studio. Muthu made me feel completely at ease.",
+    "rating": 5,
+    "date": "2024-05-10T12:00:00.000Z"
+  },
+  {
+    "id": "s3",
+    "name": "Karthik T.",
+    "comment": "Perfect for first-time tattoo, very comfortable experience.",
+    "rating": 5,
+    "date": "2024-05-10T12:00:00.000Z"
+  }
+]

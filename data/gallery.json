@@ -1,0 +1,354 @@
+{
+  "categories": [
+    {
+      "id": "realism",
+      "name": "Realism"
+    },
+    {
+      "id": "portrait",
+      "name": "Portrait"
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal"
+    },
+    {
+      "id": "piercing",
+      "name": "Piercing"
+    },
+    {
+      "id": "coverup",
+      "name": "Cover-up"
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "category": "realism",
+      "img": "/realism/IMG_2975.JPG",
+      "alt": "Realism Portrait",
+      "title": "Realism",
+      "desc": "Hyper Real"
+    },
+    {
+      "id": 2,
+      "category": "realism",
+      "img": "/realism/IMG_3151.JPG",
+      "alt": "Realism Artwork",
+      "title": "Realism",
+      "desc": "Detailed Shading"
+    },
+    {
+      "id": 3,
+      "category": "realism",
+      "img": "/realism/IMG_20251213_192041.jpg",
+      "alt": "Realism Ink",
+      "title": "Realism",
+      "desc": "Stunning Depth"
+    },
+    {
+      "id": 4,
+      "category": "realism",
+      "img": "/realism/IMG_20251213_192422.jpg",
+      "alt": "Realism Design",
+      "title": "Realism",
+      "desc": "Lifelike Art"
+    },
+    {
+      "id": 5,
+      "category": "realism",
+      "img": "/realism/IMG_20260113_132049.jpg",
+      "alt": "Realism Piece",
+      "title": "Realism",
+      "desc": "True to Life"
+    },
+    {
+      "id": 6,
+      "category": "realism",
+      "img": "/realism/IMG_20260220_162813.jpg",
+      "alt": "Realism Style",
+      "title": "Realism",
+      "desc": "Masterful Finish"
+    },
+    {
+      "id": 7,
+      "category": "realism",
+      "img": "/realism/IMG_20260308_162843.jpg",
+      "alt": "Realism Symbol",
+      "title": "Realism",
+      "desc": "Impeccable Detail"
+    },
+    {
+      "id": 40,
+      "category": "realism",
+      "img": "/realism/IMG_20260320_194001.jpg",
+      "alt": "Realism Tattoo",
+      "title": "Realism",
+      "desc": "Bold Realism"
+    },
+    {
+      "id": 41,
+      "category": "realism",
+      "img": "/realism/IMG_20260326_172807.jpg",
+      "alt": "Realism Scene",
+      "title": "Realism",
+      "desc": "Intense Shading"
+    },
+    {
+      "id": 8,
+      "category": "portrait",
+      "img": "/portraits/9c6657d5-5ed5-41c8-af17-5d1c0cfefc31.JPG",
+      "alt": "Portrait Tattoo",
+      "title": "Portrait",
+      "desc": "Hyper Realism"
+    },
+    {
+      "id": 9,
+      "category": "portrait",
+      "img": "/portraits/IMG_6616.jpeg",
+      "alt": "Portrait Detail",
+      "title": "Portrait",
+      "desc": "Black & Grey"
+    },
+    {
+      "id": 31,
+      "category": "portrait",
+      "img": "/portraits/IMG_20251226_211604.jpg",
+      "alt": "Portrait Ink",
+      "title": "Portrait",
+      "desc": "Lifelike"
+    },
+    {
+      "id": 32,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260207_170001.jpg",
+      "alt": "Detailed Portrait",
+      "title": "Portrait",
+      "desc": "Stunning Detail"
+    },
+    {
+      "id": 33,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260207_201946 copy.jpg",
+      "alt": "Classic Portrait",
+      "title": "Portrait",
+      "desc": "Timeless Art"
+    },
+    {
+      "id": 34,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260207_201946.jpg",
+      "alt": "Portrait Realism",
+      "title": "Portrait",
+      "desc": "Masterpiece"
+    },
+    {
+      "id": 35,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260221_195023.jpg",
+      "alt": "Shaded Portrait",
+      "title": "Portrait",
+      "desc": "Flawless Shading"
+    },
+    {
+      "id": 36,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260228_185654.jpg",
+      "alt": "Fine Portrait",
+      "title": "Portrait",
+      "desc": "Cinematic Feel"
+    },
+    {
+      "id": 37,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260405_200812.jpg",
+      "alt": "Creative Portrait",
+      "title": "Portrait",
+      "desc": "Expert Craft"
+    },
+    {
+      "id": 38,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260329_153303.jpg",
+      "alt": "Artistic Portrait",
+      "title": "Portrait",
+      "desc": "True Emotion"
+    },
+    {
+      "id": 39,
+      "category": "portrait",
+      "img": "/portraits/IMG_20260408_003029.jpg",
+      "alt": "Expressive Portrait",
+      "title": "Portrait",
+      "desc": "Soulful Work"
+    },
+    {
+      "id": 10,
+      "category": "minimal",
+      "img": "/minimal/IMG_20251213_192134.jpg",
+      "alt": "Minimal Tattoo",
+      "title": "Minimal",
+      "desc": "Fine Line"
+    },
+    {
+      "id": 11,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260213_224943.jpg",
+      "alt": "Minimal Piece",
+      "title": "Minimal",
+      "desc": "Simplicity"
+    },
+    {
+      "id": 12,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260223_000209.jpg",
+      "alt": "Minimal Art",
+      "title": "Minimal",
+      "desc": "Clean Work"
+    },
+    {
+      "id": 13,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260306_171434.jpg",
+      "alt": "Minimal Expression",
+      "title": "Minimal",
+      "desc": "Elegant"
+    },
+    {
+      "id": 24,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260312_211548.jpg",
+      "alt": "Minimal Design",
+      "title": "Minimal",
+      "desc": "Subtle"
+    },
+    {
+      "id": 25,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260329_205233.jpg",
+      "alt": "Minimal Line Art",
+      "title": "Minimal",
+      "desc": "Precision"
+    },
+    {
+      "id": 26,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260329_213813.jpg",
+      "alt": "Minimalist Ink",
+      "title": "Minimal",
+      "desc": "Delicate"
+    },
+    {
+      "id": 27,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260404_134917.jpg",
+      "alt": "Small Tattoo",
+      "title": "Minimal",
+      "desc": "Graceful"
+    },
+    {
+      "id": 28,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260405_144409.jpg",
+      "alt": "Minimal Detail",
+      "title": "Minimal",
+      "desc": "Sleek"
+    },
+    {
+      "id": 29,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260405_150717.jpg",
+      "alt": "Minimal Flash",
+      "title": "Minimal",
+      "desc": "Modern"
+    },
+    {
+      "id": 30,
+      "category": "minimal",
+      "img": "/minimal/IMG_20260406_193210.jpg",
+      "alt": "Minimal Symbol",
+      "title": "Minimal",
+      "desc": "Unique"
+    },
+    {
+      "id": 14,
+      "category": "piercing",
+      "img": "/p1.jpg",
+      "alt": "Piercing Jewelry",
+      "title": "Piercing",
+      "desc": "Body Art"
+    },
+    {
+      "id": 15,
+      "category": "piercing",
+      "img": "/p2.jpg",
+      "alt": "Ear Piercing",
+      "title": "Piercing",
+      "desc": "Curated Ear"
+    },
+    {
+      "id": 16,
+      "category": "piercing",
+      "img": "/p3.jpg",
+      "alt": "Nose Piercing",
+      "title": "Piercing",
+      "desc": "Precision"
+    },
+    {
+      "id": 17,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260103_185728.jpg",
+      "alt": "Cover-up tattoo result",
+      "title": "Cover-up",
+      "desc": "From old ink to fresh detail"
+    },
+    {
+      "id": 18,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260204_205043.jpg",
+      "alt": "Cover-up tattoo transformation",
+      "title": "Cover-up",
+      "desc": "Clean blend and stronger contrast"
+    },
+    {
+      "id": 19,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260215_204808.jpg",
+      "alt": "Cover-up forearm tattoo",
+      "title": "Cover-up",
+      "desc": "Balanced shading and depth"
+    },
+    {
+      "id": 20,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260413_142606.jpg",
+      "alt": "Cover-up before and after",
+      "title": "Cover-up",
+      "desc": "Sharper shape and darker finish"
+    },
+    {
+      "id": 21,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260413_142814.jpg",
+      "alt": "Cover-up warrior tattoo",
+      "title": "Cover-up",
+      "desc": "Bold redesign over faded work"
+    },
+    {
+      "id": 22,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260413_143832.jpg",
+      "alt": "Cover-up portrait tattoo",
+      "title": "Cover-up",
+      "desc": "Improved realism and texture"
+    },
+    {
+      "id": 23,
+      "category": "coverup",
+      "img": "/coverup/IMG_20260413_143724.jpg",
+      "alt": "Cover-up tattoo final result",
+      "title": "Cover-up",
+      "desc": "Fresh finish with clean edges"
+    }
+  ]
+}
