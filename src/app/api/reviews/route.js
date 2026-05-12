@@ -1,47 +1,68 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import clientPromise from '@/lib/mongodb';
 
-const dataFilePath = path.join(process.cwd(), 'data', 'reviews.json');
+const DB_NAME = 'xtreme_tattoo';
+const COLLECTION_NAME = 'reviews';
 
-async function ensureDataFile() {
-  try {
-    await fs.access(dataFilePath);
-  } catch (e) {
+async function getCollection() {
+  const client = await clientPromise;
+  const db = client.db(DB_NAME);
+  return db.collection(COLLECTION_NAME);
+}
+
+async function ensureData() {
+  const collection = await getCollection();
+  const count = await collection.countDocuments();
+  
+  if (count === 0) {
     const defaultData = [
       { id: 's1', name: 'Rahul M.', comment: 'Best tattoo artist in Trichy! The attention to detail is mind-blowing.', rating: 5, date: new Date().toISOString() },
       { id: 's2', name: 'Priya S.', comment: 'Very hygienic and professional studio. Muthu made me feel completely at ease.', rating: 5, date: new Date().toISOString() },
       { id: 's3', name: 'Karthik T.', comment: 'Perfect for first-time tattoo, very comfortable experience.', rating: 5, date: new Date().toISOString() }
     ];
-    await fs.mkdir(path.dirname(dataFilePath), { recursive: true });
-    await fs.writeFile(dataFilePath, JSON.stringify(defaultData, null, 2));
+    await collection.insertMany(defaultData);
   }
 }
 
 export async function GET() {
-  await ensureDataFile();
-  const fileContent = await fs.readFile(dataFilePath, 'utf8');
-  return NextResponse.json(JSON.parse(fileContent));
+  try {
+    await ensureData();
+    const collection = await getCollection();
+    const reviews = await collection.find({}).sort({ date: -1 }).toArray();
+    return NextResponse.json(reviews);
+  } catch (error) {
+    console.error('Database Error:', error);
+    return NextResponse.json({ error: 'Failed to fetch reviews' }, { status: 500 });
+  }
 }
 
 export async function POST(request) {
-  await ensureDataFile();
-  const data = JSON.parse(await fs.readFile(dataFilePath, 'utf8'));
-  
-  const body = await request.json();
-  const { action, review, id } = body;
+  try {
+    const collection = await getCollection();
+    const body = await request.json();
+    const { action, review, id } = body;
 
-  if (action === 'add') {
-    data.unshift(review);
-    await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
-    return NextResponse.json({ success: true, data });
+    if (action === 'add') {
+      await collection.insertOne({
+        ...review,
+        date: review.date || new Date().toISOString()
+      });
+      const data = await collection.find({}).sort({ date: -1 }).toArray();
+      return NextResponse.json({ success: true, data });
+    }
+
+    if (action === 'delete') {
+      // In MongoDB we can delete by the 'id' field provided or '_id'
+      // The app seems to use a custom 'id' field
+      await collection.deleteOne({ id: id });
+      const newData = await collection.find({}).sort({ date: -1 }).toArray();
+      return NextResponse.json({ success: true, data: newData });
+    }
+
+    return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+  } catch (error) {
+    console.error('Database Error:', error);
+    return NextResponse.json({ error: 'Failed to process request' }, { status: 500 });
   }
-
-  if (action === 'delete') {
-    const newData = data.filter(r => r.id !== id);
-    await fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2));
-    return NextResponse.json({ success: true, data: newData });
-  }
-
-  return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 }
+
