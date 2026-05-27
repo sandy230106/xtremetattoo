@@ -500,7 +500,7 @@ export default function Home() {
                 <div className="contact-icon">📍</div>
                 <div>
                   <h4 style={{marginBottom: "0.5rem", fontSize: "1.2rem"}}>Visit Us</h4>
-                  <p style={{color: "var(--clr-gray)"}}>No # C-117, 11th B Cross Rd,<br/>West Thillai Nagar, Tennur,<br/>Tiruchirappalli, Tamil Nadu 620018</p>
+                  <p style={{color: "var(--clr-gray)"}}>1st floor, Shop No. 12A, <br/>Vidnesh Plaza, 1st Cross Rd,<br/>Thillai Nagar, Main Road,<br/>Tiruchirappalli, Tamil Nadu 620018</p>
                 </div>
               </div>
               
