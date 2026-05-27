@@ -500,7 +500,7 @@ export default function Home() {
                 <div className="contact-icon">📍</div>
                 <div>
                   <h4 style={{marginBottom: "0.5rem", fontSize: "1.2rem"}}>Visit Us</h4>
-                  <p style={{color: "var(--clr-gray)"}}>1st floor, Shop No. 12A, <br/>Vidnesh Plaza, 1st Cross Rd,<br/>Thillai Nagar, Main Road,<br/>Tiruchirappalli, Tamil Nadu 620018</p>
+                  <p style={{color: "var(--clr-gray)"}}>1st floor, Shop No. 12A, <br/>Vignesh Plaza, 1st Cross Rd,<br/>Thillai Nagar, Main Road,<br/>Tiruchirappalli, Tamil Nadu 620018</p>
                 </div>
               </div>
               
@@ -553,10 +553,10 @@ export default function Home() {
               <input id="rev-name-inline" placeholder="Your name" required style={{padding: '1rem', borderRadius: '4px', border: '1px solid #444', background: '#222', color: '#fff', width: '100%'}} />
               <select id="rev-rating-inline" defaultValue={5} style={{padding: '1rem', borderRadius: '4px', border: '1px solid #444', background: '#222', color: '#fff', width: '100%'}}>
                 <option value={5}>★★★★★</option>
-                <option value={4}>★★★★☆</option>
-                <option value={3}>★★★☆☆</option>
-                <option value={2}>★★☆☆☆</option>
-                <option value={1}>★☆☆☆☆</option>
+                <option value={4}>★★★★</option>
+                <option value={3}>★★★</option>
+                <option value={2}>★★</option>
+                <option value={1}>★</option>
               </select>
               <textarea id="rev-comment-inline" rows={3} placeholder="Write your review..." required style={{padding: '1rem', borderRadius: '4px', border: '1px solid #444', background: '#222', color: '#fff', width: '100%'}} />
               <div style={{textAlign: 'center', marginTop: '1rem'}}>
